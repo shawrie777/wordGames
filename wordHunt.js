@@ -3,14 +3,14 @@ import { loadWords } from "./loadWords.js";
 const words = await loadWords();
 if (!words) throw new Error("Failed to load word list");
 
-const filtered = words.filter(word => word.length > 3);
+const filtered = words.filter(word => word.length > 3).map(word => word.toLowerCase());
 let target, guesses;
 reset();
 
 document.querySelector(".replay").addEventListener("click", reset);
 document.querySelector(".add").addEventListener("click", ev => {
     const guess = document.querySelector(".guess").value;
-    addToDict(guess);
+    addToDict(guess.toLowerCase());
     ev.target.style.display = "none";
 });
 
@@ -30,7 +30,7 @@ function play() {
     input.className = "guess";
     input.onkeydown = ev => {
         if (ev.key === "Enter") {
-            const guess = ev.target.value;
+            const guess = ev.target.value.toLowerCase();
             if (guess === target) {
                 const win = document.querySelector(".win");
                 win.firstElementChild.textContent = `Well done! The word was ${target}!`
@@ -58,7 +58,7 @@ function reset() {
     target = filtered[
         Math.min(
             Math.max(Math.floor(Math.random() * filtered.length), 1), filtered.length - 2)
-    ];
+    ].toLowerCase();
     console.log(target);
     guesses = [filtered[0], filtered[filtered.length - 1]];
     document.querySelector(".win").style.display = "none";
