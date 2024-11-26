@@ -31,10 +31,13 @@ function play() {
     input.onkeydown = ev => {
         if (ev.key === "Enter") {
             const guess = ev.target.value.toLowerCase();
+            const rect = ev.target.getBoundingClientRect();
+            console.log(rect);
             if (guess === target) {
                 const win = document.querySelector(".win");
                 win.firstElementChild.textContent = `Well done! The word was ${target}!`
                 win.style.display = "unset";
+                win.style.top = `${Math.max(0, rect.top)}px`;
             }
             else if (filtered.includes(guess)) {
                 guesses.push(guess);
@@ -44,7 +47,9 @@ function play() {
                 const div = document.querySelector(".badGuess");
                 div.firstElementChild.textContent = `${guess} is not in my dictionary!`
                 div.style.display = "unset";
+                div.style.top = `${Math.max(0, rect.top)}px`;
                 setTimeout(()=>{div.style.display = "none"}, 3000)
+                ev.target.value = "";
             }
         }
     }

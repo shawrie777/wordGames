@@ -6,6 +6,8 @@
     padding: 2rem 3rem;
     font-size: 3rem;
     display: none;
+    z-index: 5;
+    background-color: antiquewhite;
 }
 
 .replay, .add {
@@ -18,4 +20,11 @@
 
 .win p {
     margin: 0;
+}
+
+.guess {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    font-size: 1.5rem;
 }
